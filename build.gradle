@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 group = 'com.viktoriia'
 version = '0.0.1-SNAPSHOT'
@@ -20,8 +21,12 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.elasticsearch:elasticsearch:7.2.1'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.2.1'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.3.0'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-client-sniffer:7.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
