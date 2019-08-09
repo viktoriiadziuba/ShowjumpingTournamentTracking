@@ -1,48 +1,27 @@
 package com.viktoriia.model;
 
-import java.time.LocalTime;
+import java.time.LocalTime; 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Parent;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Document(indexName = "showjumping", type = "course")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Course {
 
-	@Id
 	private String id;
-	
 	private int height;
-	
 	private String description;
 	
+	@JsonFormat(pattern = "HH:mm")
 	private LocalTime time;
-	
-	@Field(type = FieldType.Nested)
 	private List<Participant> participants;
-	
-	@Parent(type = "tournament")
-	private String tournamentId;
+	private String tournamentTitle;
 	
 
 	public Course() {
 		
 	}
-
-	public Course(String id, int height, String description, LocalTime time, List<Participant> participants,
-			String tournamentId) {
-		super();
-		this.id = id;
-		this.height = height;
-		this.description = description;
-		this.time = time;
-		this.participants = participants;
-		this.tournamentId = tournamentId;
-	}
-
 
 	public String getId() {
 		return id;
@@ -84,12 +63,12 @@ public class Course {
 		this.participants = participants;
 	}
 
-	public String getTournamentId() {
-		return tournamentId;
+	public String getTournamentTitle() {
+		return tournamentTitle;
 	}
 
-	public void setTournamentId(String tournamentId) {
-		this.tournamentId = tournamentId;
+	public void setTournamentTitle(String tournamentTitle) {
+		this.tournamentTitle = tournamentTitle;
 	}
 
 	@Override
@@ -100,7 +79,7 @@ public class Course {
 				+ "description=%s "
 				+ "time=%tH "
 				+ "tournamentId=%s "
-				+ "\n" + "%s]", id, height, description, time, tournamentId, participants);
+				+ "\n" + "%s]", id, height, description, time, tournamentTitle, participants);
 				
 	}
 	

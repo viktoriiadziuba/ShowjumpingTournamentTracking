@@ -2,32 +2,22 @@ package com.viktoriia.model;
 
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude; 
 
-@Document(indexName = "showjumping", type = "tournament")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Tournament {
 
-	@Id
 	private String id;
-	
 	private String title;
-
-	private LocalDate date;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate date;
 	private String description;
 	
 
 	public Tournament() {
 		
-	}
-
-	public Tournament(String id, String title, LocalDate date, String description) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.date = date;
-		this.description = description;
 	}
 
 	public String getId() {
