@@ -51,7 +51,7 @@ public class CourseController {
 		return service.save(course);	
 	}
 	
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
     public Map<String, Object> updateCourseById(@RequestBody Course course, @PathVariable String id) {
       return service.updateCourseById(id, course);
     }
