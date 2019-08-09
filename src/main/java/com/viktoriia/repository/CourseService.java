@@ -40,32 +40,32 @@ public class CourseService {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ElasticsearchConfig.class);
 
-	private final String INDEX = "_coursedata";
-	private final String TYPE = "course";
-	private RestHighLevelClient restHighLevelClient;
+	private final String INDEX = "coursedata";
+	private RestHighLevelClient client;
 	private ObjectMapper objectMapper;
 	
 	public CourseService(ObjectMapper objectMapper, RestHighLevelClient restHighLevelClient) {
 		this.objectMapper = objectMapper;
-		this.restHighLevelClient = restHighLevelClient;
+		this.client = restHighLevelClient;
 	}
 	
 	public Course save(Course course) throws IOException {
-		course.setId(UUID.randomUUID().toString());
-		Map<String, Object> documentMapper = objectMapper.convertValue(course, Map.class);
-		IndexRequest indexRequest = new IndexRequest(INDEX).type(TYPE).id(course.getId()).source(documentMapper);
+		UUID uuid = UUID.randomUUID();
+		course.setId(uuid.toString());
+        Map<String, Object> courseMapper = objectMapper.convertValue(course, Map.class);
+		IndexRequest indexRequest = new IndexRequest(INDEX).id(course.getId()).source(courseMapper);
 		
-			IndexResponse response = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+			IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
 		
 		return course;
 	}
 	
 	public Course getCourseById(String id) {
-		GetRequest getRequest = new GetRequest(INDEX, TYPE, id);
+		GetRequest getRequest = new GetRequest(INDEX, id);
 		
 		GetResponse getResponse;
 		try {
-			getResponse = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);
+			getResponse = client.get(getRequest, RequestOptions.DEFAULT);
 			Map<String, Object> resultMap = getResponse.getSource();
 
 	        return objectMapper
@@ -78,14 +78,14 @@ public class CourseService {
 	}
 	
 	public Map<String, Object> updateCourseById(String id, Course book){
-		  UpdateRequest updateRequest = new UpdateRequest(INDEX, TYPE, id)
+		  UpdateRequest updateRequest = new UpdateRequest(INDEX, id)
 		          .fetchSource(true);    // Fetch Object after its update
 		  Map<String, Object> error = new HashMap<>();
 		  error.put("Error", "Unable to update course");
 		  try {
 		    String courseJson = objectMapper.writeValueAsString(book);
 		    updateRequest.doc(courseJson, XContentType.JSON);
-		    UpdateResponse updateResponse = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
+		    UpdateResponse updateResponse = client.update(updateRequest, RequestOptions.DEFAULT);
 		    Map<String, Object> sourceAsMap = updateResponse.getGetResult().sourceAsMap();
 		    return sourceAsMap;
 		    
@@ -98,9 +98,9 @@ public class CourseService {
 		}
 	
 	public void deleteCourseById(String id) {
-		  DeleteRequest deleteRequest = new DeleteRequest(INDEX, TYPE, id);
+		  DeleteRequest deleteRequest = new DeleteRequest(INDEX, id);
 		  try {
-		    DeleteResponse deleteResponse = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
+		    DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
 		  } catch (java.io.IOException e){
 		   		e.getLocalizedMessage();
 		  }
@@ -112,7 +112,7 @@ public class CourseService {
 		searchSourceBuilder.query(QueryBuilders.matchAllQuery()); 
 		searchRequest.source(searchSourceBuilder); 
 		
-		SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+		SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 		
 		SearchHit[] searchHit = searchResponse.getHits().getHits();
 		List<Course> courses = new ArrayList<>();
@@ -171,7 +171,7 @@ public class CourseService {
         searchRequest.source(searchSourceBuilder);
 
         SearchResponse response =
-        		restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        		client.search(searchRequest, RequestOptions.DEFAULT);
 
         return getSearchResult(response);
     }

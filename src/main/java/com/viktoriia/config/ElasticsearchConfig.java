@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Configuration;
 public class ElasticsearchConfig {
 
 	@Value("${elasticsearch.host}")
-	private String elasticsearchHost;
+    private String elasticsearchHost;
 
-	@Bean(destroyMethod = "close")
-	public RestHighLevelClient client() {
+    @Bean(destroyMethod = "close")
+    public RestHighLevelClient client() {
 
-		RestHighLevelClient client = new RestHighLevelClient(
-				RestClient.builder(new HttpHost(elasticsearchHost)));
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost(elasticsearchHost)));
 
-    return client;
+        return client;
 	}
 }

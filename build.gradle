@@ -23,8 +23,8 @@ repositories {
 
 
 dependencies {
-	implementation 'org.elasticsearch:elasticsearch:7.2.1'
-	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.2.1'
+	implementation 'org.elasticsearch:elasticsearch:7.3.0'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.3.0'
 	implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.3.0'
 	implementation 'org.elasticsearch.client:elasticsearch-rest-client-sniffer:7.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

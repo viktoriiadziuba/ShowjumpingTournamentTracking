@@ -29,8 +29,14 @@ public class CourseController {
 	public CourseController(CourseService service) {
 		this.service = service;
 	}
+	
+	@GetMapping("/test")
+    public String test(){
 
-	@GetMapping("{id}")
+        return "Success";
+    }
+
+	@GetMapping("/{id}")
 	public Course findById(@PathVariable("id") String id) throws IOException {
 		return service.getCourseById(id);
 	}
