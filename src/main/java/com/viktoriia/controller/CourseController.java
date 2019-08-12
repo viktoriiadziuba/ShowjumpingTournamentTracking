@@ -1,6 +1,6 @@
 package com.viktoriia.controller;
 
-import java.io.IOException;
+import java.io.IOException;   
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viktoriia.model.Course;
-import com.viktoriia.repository.CourseService;
+import com.viktoriia.service.CourseService;
 
 //add auth
 @RestController

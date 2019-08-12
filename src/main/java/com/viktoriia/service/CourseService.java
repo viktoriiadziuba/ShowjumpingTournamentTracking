@@ -1,6 +1,6 @@
-package com.viktoriia.repository;
+package com.viktoriia.service;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,7 +12,6 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
