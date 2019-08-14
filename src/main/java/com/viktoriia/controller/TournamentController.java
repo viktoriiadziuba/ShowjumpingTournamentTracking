@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viktoriia.model.Tournament;
-import com.viktoriia.repository.TournamentService;
+import com.viktoriia.service.TournamentService;
 
 //add auth
 @RestController

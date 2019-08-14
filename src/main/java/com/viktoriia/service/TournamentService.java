@@ -1,4 +1,4 @@
-package com.viktoriia.repository;
+package com.viktoriia.service;
 
 import java.io.IOException; 
 import java.util.Map;
