@@ -1,8 +1,11 @@
 package com.viktoriia.controller;
 
-import java.io.IOException;   
+import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,26 +22,40 @@ import com.viktoriia.service.CourseService;
 @RequestMapping("/course")
 public class CourseController {
 
-	private CourseService service;
-	
 	@Autowired
-	public CourseController(CourseService service) {
-		this.service = service;
-	}
+	private CourseService service;
 
+	@GetMapping
+	public ResponseEntity<List<Course>> getAll() throws Exception {
+		List<Course> courses = service.findAll();
+		if(!courses.equals(null)) {
+			return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/{id}")
-	public Course findById(@PathVariable("id") String id) throws IOException {
-		return service.getCourseById(id);
+	public ResponseEntity<Course> findById(@PathVariable("id") String id) throws IOException {
+		Course course = service.getCourseById(id);
+		if(!course.equals(null)) {
+			return new ResponseEntity<Course>(course, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping
-	public Course save(@RequestBody Course course) throws IOException {
-		return service.save(course);	
+	public ResponseEntity<Course> save(@RequestBody Course course) throws IOException {
+		if(!course.getTournamentTitle().equals(null) && course.getHeight() != 0 && !course.getTime().equals(null) && !course.getParticipants().equals(null)) {
+			service.save(course);	
+			return new ResponseEntity<Course>(course, HttpStatus.CREATED);
+		}
+		return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
 	}
 	
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id") String id) {
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		service.deleteCourseById(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 }

@@ -1,14 +1,19 @@
 package com.viktoriia.model;
 
-import java.time.LocalTime;  
+import java.time.LocalTime;   
 import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@Document(indexName = "coursedata", type = "course")
 public class Course {
 
+	@Id
 	private String id;
 	private int height;
 	private String description;
