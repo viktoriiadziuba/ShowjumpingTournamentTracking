@@ -2,12 +2,17 @@ package com.viktoriia.model;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude; 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@Document(indexName = "tournamentdata", type = "tournament")
 public class Tournament {
 
+	@Id
 	private String id;
 	private String title;
 	
@@ -55,7 +60,7 @@ public class Tournament {
 	@Override
 	public String toString() {
 		return String.format("[Toutnament "
-				+ "id=%d "
+				+ "id=%s "
 				+ "title=%s "
 				+ "date=%tD "
 				+ "description=%s]", id, title, date, description);
