@@ -8,15 +8,10 @@ import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAu
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
  
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.viktoriia.repository")
 @EnableAutoConfiguration(exclude={ElasticsearchAutoConfiguration.class, RestClientAutoConfiguration.class})
 public class ElasticsearchConfig {
-
-//	@Value("${elasticsearch.host}")
-//    private String elasticsearchHost;
 
     @Bean(destroyMethod = "close")
     public RestHighLevelClient client() {
