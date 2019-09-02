@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Tournament {
 
 	@Id
-	private String tournamentId;
+	private String id;
 	private String title;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
@@ -22,11 +22,11 @@ public class Tournament {
 	}
 
 	public String getId() {
-		return tournamentId;
+		return id;
 	}
 
 	public void setId(String id) {
-		this.tournamentId = id;
+		this.id = id;
 	}
 	
 	public String getTitle() {
@@ -59,7 +59,7 @@ public class Tournament {
 				+ "id=%s "
 				+ "title=%s "
 				+ "date=%tD "
-				+ "description=%s]", tournamentId, title, date, description);
+				+ "description=%s]", id, title, date, description);
 	}
 	
 }
