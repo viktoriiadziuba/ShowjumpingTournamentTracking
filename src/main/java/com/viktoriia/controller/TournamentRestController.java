@@ -14,48 +14,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viktoriia.model.Course;
-import com.viktoriia.service.CourseService;
+import com.viktoriia.model.Tournament;
+import com.viktoriia.service.TournamentService;
 
 //add auth
 @RestController
-@RequestMapping("/course")
-public class CourseController {
-
+@RequestMapping("/tournament")
+public class TournamentRestController {
+	
 	@Autowired
-	private CourseService service;
+	private TournamentService service;
 
 	@GetMapping
-	public ResponseEntity<List<Course>> getAll() throws Exception {
-		List<Course> courses = service.findAll();
-		if(!courses.equals(null)) {
-			return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	public ResponseEntity<List<Tournament>> findAll() throws Exception {
+		List<Tournament> tournaments = service.findAll();
+		if(tournaments != null) {
+			return new ResponseEntity<>(tournaments, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Course> findById(@PathVariable("id") String id) throws IOException {
-		Course course = service.getCourseById(id);
-		if(!course.equals(null)) {
-			return new ResponseEntity<Course>(course, HttpStatus.OK);
+	public ResponseEntity<Tournament> findById(@PathVariable("id") String id) {
+		Tournament tournament = service.getTournamentById(id);
+		if(tournament != null) {
+			return new ResponseEntity<>(tournament, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Course> save(@RequestBody Course course) throws IOException {
-		if(!course.getTournamentTitle().equals(null) && course.getHeight() != 0 && !course.getTime().equals(null) && !course.getParticipants().equals(null)) {
-			service.save(course);	
-			return new ResponseEntity<Course>(course, HttpStatus.CREATED);
+	public ResponseEntity<Tournament> save(@RequestBody Tournament tournament) throws IOException {
+		if(tournament.getTitle() != null && tournament.getDate() != null) {
+			service.save(tournament);	
+			return new ResponseEntity<>(tournament, HttpStatus.CREATED);
 		}
 		return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
-		service.deleteCourseById(id);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		service.deleteTournamentById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
 }
