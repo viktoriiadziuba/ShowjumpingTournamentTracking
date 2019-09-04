@@ -2,7 +2,9 @@ package com.viktoriia.controller;
 
 import com.viktoriia.model.Tournament;
 import com.viktoriia.service.TournamentService;
+import com.viktoriia.user.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.Reference;
 import org.springframework.stereotype.Controller;
@@ -11,30 +13,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 public class CommonController {
 
+    Logger log;
+
     @Autowired
     private TournamentService tournamentService;
 
-    private final Facebook facebook;
-
-    @Inject
-    public CommonController(Facebook facebook) {
-        this.facebook = facebook;
-    }
-
     @GetMapping("/")
-    public String home(Model model) {
-        List<Reference> friends = facebook.friendOperations().getFriends();
-        model.addAttribute("friends", friends);
-        return "home";
-    }
-
-    @GetMapping("/tournaments")
     public String getAllTournaments(Model model) throws Exception {
         model.addAttribute("tournaments", tournamentService.findAll());
         return "tournaments";

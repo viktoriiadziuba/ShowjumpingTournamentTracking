@@ -7,7 +7,7 @@ public class SecurityContext {
     public static User getCurrentUser() {
         User user = currentUser.get();
         if (user == null) {
-            throw new IllegalStateException("No user is currently signed in");
+            throw new IllegalStateException("No user isn't currently signed in");
         }
         return user;
     }
