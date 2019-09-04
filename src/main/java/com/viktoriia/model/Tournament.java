@@ -5,21 +5,17 @@ import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-@Document(indexName = "tournamentdata", type = "tournament")
+@Document(indexName = "tournamentdata")
 public class Tournament {
 
 	@Id
 	private String id;
 	private String title;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	private String description;
-	
 
 	public Tournament() {
 		
@@ -65,6 +61,5 @@ public class Tournament {
 				+ "date=%tD "
 				+ "description=%s]", id, title, date, description);
 	}
-	
 	
 }
