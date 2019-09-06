@@ -26,7 +26,7 @@ public class TournamentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TournamentService.class);
 
-    private final String INDEX = "tournamentdata";
+    private static final String INDEX = "tournamentdata";
     private RestHighLevelClient client;
     private ObjectMapper objectMapper;
 

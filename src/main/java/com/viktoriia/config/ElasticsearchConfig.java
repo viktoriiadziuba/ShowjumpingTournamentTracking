@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAu
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
- 
+
 @Configuration
-@EnableAutoConfiguration(exclude={ElasticsearchAutoConfiguration.class, RestClientAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {ElasticsearchAutoConfiguration.class, RestClientAutoConfiguration.class})
 public class ElasticsearchConfig {
 
     @Bean(destroyMethod = "close")
@@ -20,5 +20,5 @@ public class ElasticsearchConfig {
                 RestClient.builder(new HttpHost("localhost", 9200, "http")));
 
         return client;
-	}
+    }
 }

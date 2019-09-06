@@ -54,7 +54,7 @@ public class SocialConfig implements SocialConfigurer {
     }
 
     @Bean
-    @Scope(value="request", proxyMode= ScopedProxyMode.INTERFACES)
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public Facebook facebook(ConnectionRepository repository) {
         Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
         return connection != null ? connection.getApi() : null;

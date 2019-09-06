@@ -16,9 +16,9 @@
         <div class="card-body">
             <div th:switch="${tournaments}" class="container my-5">
                 <p class="my-5">
-                    <a href="/login" class="btn btn-primary"><i
-                            class="fas ml-2"> Admin Page</i></a>
-                   <a th:href="@{/signout}" class="btn btn-danger">Sign Out</a>
+                    <a href="/add" class="btn btn-primary"><i
+                            class="fas fa-plus ml-2"> Add Tournament</i></a>
+                    <a th:href="@{/signout}" class="btn btn-danger">Sign Out</a>
                 </p>
                 <div class="col-md-10">
                     <h2 th:case="null">No Tournaments yet!</h2>
@@ -29,6 +29,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Date</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,6 +37,7 @@
                                 <td th:text="${tournament.title}"></td>
                                 <td th:text="${tournament.description}"></td>
                                 <td th:text="${tournament.date}"></td>
+                                <td><a th:href="@{/tournaments/delete/{id}(id=${tournament.id})}" class="btn btn-primary"><i class="fas ml-2">Delete</i></a></td>
                             </tr>
                             </tbody>
                         </table>
