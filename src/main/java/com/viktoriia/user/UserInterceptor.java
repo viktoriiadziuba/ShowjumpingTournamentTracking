@@ -18,6 +18,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
         this.connectionRepository = connectionRepository;
     }
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         rememberUser(request, response);
         handleSignOut(request, response);
@@ -28,11 +29,10 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         SecurityContext.remove();
     }
-
-    // internal helpers
 
     private void rememberUser(HttpServletRequest request, HttpServletResponse response) {
         String userId = userCookieGenerator.readCookieValue(request);

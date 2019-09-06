@@ -1,65 +1,64 @@
 package com.viktoriia.model;
 
-import java.time.LocalDate;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Document(indexName = "tournamentdata")
 public class Tournament {
 
-	@Id
-	private String id;
-	private String title;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate date;
-	private String description;
+    @Id
+    private String id;
+    private String title;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    private String description;
 
-	public Tournament() {
-		
-	}
+    public Tournament() {
 
-	public String getId() {
-		return id;
-	}
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("[Toutnament "
-				+ "id=%s "
-				+ "title=%s "
-				+ "date=%tD "
-				+ "description=%s]", id, title, date, description);
-	}
-	
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[Toutnament "
+                + "id=%s "
+                + "title=%s "
+                + "date=%tD "
+                + "description=%s]", id, title, date, description);
+    }
+
 }

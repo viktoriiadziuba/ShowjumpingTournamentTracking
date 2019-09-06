@@ -18,13 +18,16 @@ import javax.inject.Inject;
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new UserInterceptor(usersConnectionRepository));
     }
 
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/signin");
         registry.addViewController("/signout");
+        registry.addViewController("/login");
     }
 
     @Bean
@@ -34,6 +37,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    private @Inject UsersConnectionRepository usersConnectionRepository;
+    private @Inject
+    UsersConnectionRepository usersConnectionRepository;
 
 }

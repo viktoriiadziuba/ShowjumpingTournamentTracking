@@ -11,11 +11,10 @@ import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 
-
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com.viktoriia", excludeFilters = { @ComponentScan.Filter(Configuration.class) })
+@ComponentScan(basePackages = "com.viktoriia", excludeFilters = {@ComponentScan.Filter(Configuration.class)})
 @PropertySource("classpath:application.properties")
 public class MainConfig {
 
